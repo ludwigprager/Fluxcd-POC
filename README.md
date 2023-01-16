@@ -1,40 +1,42 @@
 # FluxCD POC
 
-Dieser POC zeigt das 'continuous deployment' (CD) mit FluxCD:
-die kontrollierte Bereitstellung von zuvor mit 'continuous integration' (CI)
-gebauten und erfolgreich getesteten und versionierten Artefakten.
+This POC demonstrates the 'continuous deployment' (CD) using FluxCD,
+i.e. the deployment of an artefact that was previously built and successfully tested in a 'continuous integration' (CI)
+system.
 
-FluxCD, das in einem k8s-cluster läuft, überwacht eine git-Ablage außerhalb des cluster.
-Regelmäßig, z.B. alle 3 Minuten, wird auf eine Abweichung (drift) geprüft.
-Ist eine Abweichung  entdeckt, wird der Ausgleich (reconciliation) hergestellt.
+FluxCD, which runs in a k8s-cluster , surveys a git repository outside of the cluster.
+In regularl intevals, e.g. every 5 minutes, it will test for a drift in configuration
+and attempt a reconciliation if found.
 
-Mit wenigen Vorbedingungen wird dieser POC in einer isolierten Umgebung aufgebaut,
-ein Versionsinkrement in git vorgenommen, der Ausgleich gezeigt und die Umgebung wieder abgebaut.
+With only few preconditions this POC will be set up in an isolated environment,
+increment a version number in a git repository, demonstrate a reconciliation adn torn down again.
 
-# Bedienung
-In [der Konfiguration dieses POC](./set-env.sh) entweder `multi-cluster` oder `multi-tenancy` wählen.
+# Usage
+In [the configuration file of this POC](./set-env.sh) select either `multi-cluster` or `multi-tenancy`.
 ## Starten
 ```
-git clone git@github.com:ludwigprager/Fluxcd-POC.git
+git clone https://github.com/ludwigprager/Fluxcd-POC.git
 ./fluxcd-POC/10-deploy.sh
 ```
-Mit diesen Befehlen wird
-- ein lokaler git-server (gitea) in docker-compose gestartet
-- ein lokales kubernetes cluster gestartet 
-- FluxCD installiert
-- FluxCD installiert die 'infrastructure' und 'apps' Komponenten, wie in der Ablage spezifiert (GitOps)
+These two command will
+- start a local git git-server (gitea) in docker-compose
+- start a local kubernetes cluster (k3d)
+- install FluxCD
+- have FluxCD install the 'infrastructure' and 'apps' components, as specified in the repository (GitOps)
 
-## Ausführen eines Versionsinkrements
+## Perform a Version Increment
 ```
 ./fluxcd-POC/80-deploy-new-release.sh
 ```
-- das Skript [80-deploy-new-release.sh](./80-deploy-new-release.sh) erhöht die Version des podinfo containers in der lokalen Kopie der Ablage, übergibt (commit) und schiebt (push) auf den git-server.
-- FluxCD erkennt die Abweichung (drift) und gleicht sie aus
-## Beenden
+- the script in [80-deploy-new-release.sh](./80-deploy-new-release.sh) modifies the version of the podinfo container in the local git repo, commits and pushs
+onto the git server.
+- FluxCD detects the drift reconciles
+## Tear Down
 ```
 ./fluxcd-POC/90-teardown.sh
 ```
 
+# translation to english in progress :-). Perhaps try google translate just in case ...
 
 # Konzept
 ## Verwendetes Konzept

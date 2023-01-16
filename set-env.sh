@@ -11,9 +11,9 @@ export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChec
 export CLUSTERS=""
 export CLUSTER_PREFIX=""
 CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}core-app"
-#CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}core-infra"
-#CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}dmz-app"
-#CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}dmz-infra"
+CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}core-infra"
+CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}dmz-app"
+CLUSTERS="${CLUSTERS} ${CLUSTER_PREFIX}dmz-infra"
 
 
 # hier den POC-type auswählen (der letzte gewinnt)
